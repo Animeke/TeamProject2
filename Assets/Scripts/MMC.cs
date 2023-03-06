@@ -17,6 +17,7 @@ public class MMC : MonoBehaviour
     public AudioClip LoseSFX;
     bool DoOnce = false;
     static bool EnableBGM = true;
+    bool GameStarted = false;
 
 
     void Awake()
@@ -36,7 +37,7 @@ public class MMC : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (TogglePauseMenu == false)
+            if (TogglePauseMenu == false && GameStarted == true)
             {
                 PauseGame();
                 TogglePauseMenu = true;
@@ -54,6 +55,7 @@ public class MMC : MonoBehaviour
         MenuCamera.SetActive(false);
         PlayerCamera.SetActive(true);
         MouseDisable();
+        GameStarted = true;
     }
 
     public void MainMenu()
