@@ -42,7 +42,7 @@ public class RobotProjectileController : MonoBehaviour
 
     private void Throw()
     {
-        if (robotController.IsStunned == false || playerController.isSafe == false)
+        if (robotController.IsStunned == false)
         {
             GameObject projectile = Instantiate(objectToThrow, attackPoint.position, transform.rotation); //summons the projectile at the spawn point
 
@@ -76,7 +76,7 @@ public class RobotProjectileController : MonoBehaviour
 
     private void LookAtTarget()
     {
-        if (robotController.IsStunned == false || playerController.isSafe == false)
+        if (robotController.IsStunned == false)
         {
             // Calculate the direction towards the player
             Vector3 direction = player.position - transform.position;
@@ -101,9 +101,9 @@ public class RobotProjectileController : MonoBehaviour
         }
     }
 
-    public void Start()
+    public void StartGame()
     {
-        StartCoroutine(Timer());
         robotController.IsStunned = false;
+        StartCoroutine(Timer());
     }
 }

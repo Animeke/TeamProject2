@@ -9,7 +9,7 @@ public class RobotController : MonoBehaviour
     [SerializeField] private Transform movePositionTransform;
     private NavMeshAgent navMeshAgent;
 
-    public bool IsStunned = false;
+    public bool IsStunned = true;
     public GameObject player;
     ProjectileController playerController;
 
@@ -17,11 +17,12 @@ public class RobotController : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         playerController = player.GetComponent<ProjectileController>();
+        IsStunned = true;
     }
 
     private void Update()
     {
-        if (IsStunned == false && playerController.isSafe == false)
+        if (IsStunned == false)
         {
         gameObject.GetComponent<NavMeshAgent>().isStopped = false;
         navMeshAgent.destination = movePositionTransform.position;

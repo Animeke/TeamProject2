@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MMC : MonoBehaviour
 {
     public GameObject MenuCamera;
     public GameObject PlayerCamera;
-    public GameObject[] PauseMenu;
+    public GameObject PauseScreen;
     public bool TogglePauseMenu = false;
     public AudioSource BGM;
+    public GameObject LoseScreen;
+    public GameObject WinScreen;
+    public AudioSource audioSource;
+    public AudioClip WinSFX;
+    public AudioClip LoseSFX;
+    bool DoOnce = false;
+    static bool EnableBGM = true;
 
 
     void Awake()
@@ -16,26 +24,27 @@ public class MMC : MonoBehaviour
         MenuCamera.SetActive(true);
         PlayerCamera.SetActive(false);
         MouseEnable();
-        BGM.Play();
+        if (EnableBGM == true)
+        {
+            DontDestroyOnLoad(BGM);
+            BGM.Play();
+            EnableBGM = false;
+        }
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape) && TogglePauseMenu == false)
         {
-            MainMenu();
             PauseGame();
             TogglePauseMenu = true;
         }
 
         if(Input.GetKeyDown(KeyCode.Escape) && TogglePauseMenu == true)
         {
-            StartGame();
             ResumeGame();
             TogglePauseMenu = false;
         }
-
-        Debug.Log(TogglePauseMenu);
     }
 
     public void StartGame()
@@ -52,6 +61,10 @@ public class MMC : MonoBehaviour
         MouseEnable();
     }
 
+    public void Restart()
+    {
+         SceneManager.LoadScene("Stage");
+    }
     public void MouseEnable()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -71,19 +84,39 @@ public class MMC : MonoBehaviour
 
     public void PauseGame()
     {
-        for(int i = 0; i < PauseMenu.Length; i++)
-        {
-            PauseMenu[i].SetActive(true);
-        }
+        PauseScreen.SetActive(true);
+        MainMenu();
         Time.timeScale = 0;
     }
 
     public void ResumeGame()
     {
-        for(int i = 0; i < PauseMenu.Length; i++)
-        {
-            PauseMenu[i].SetActive(false);
-        }
+        PauseScreen.SetActive(false);
+        StartGame();
         Time.timeScale = 1;
+    }
+
+    public void Lost()
+    {
+        if (DoOnce == false)
+        {
+            LoseScreen.SetActive(true);
+            MainMenu();
+            MouseEnable();
+            audioSource.PlayOneShot(LoseSFX);
+            DoOnce = true;
+        }
+    }
+
+    public void Won()
+    {
+        if (DoOnce == false)
+        {
+            WinScreen.SetActive(true);
+            MainMenu();
+            MouseEnable();
+            audioSource.PlayOneShot(WinSFX);
+            DoOnce = true;
+        }
     }
 }
