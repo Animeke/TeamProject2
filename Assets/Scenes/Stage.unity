@@ -18917,6 +18917,7 @@ MonoBehaviour:
   throwForce: 20
   throwUpwardForce: 0
   LaunchSFX: {fileID: 8300000, guid: 7df2f72875dd10444b70733b2215e41d, type: 3}
+  MenuEvents: {fileID: 2038283730}
 --- !u!114 &2070505808
 MonoBehaviour:
   m_ObjectHideFlags: 0

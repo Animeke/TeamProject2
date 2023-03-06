@@ -19,6 +19,7 @@ public class PusherController : MonoBehaviour
     private Vector3 initialPos;
     private Vector3 pushPos;
     private bool isPushing;
+    public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class PusherController : MonoBehaviour
     private void Push()
     {
         pushPos = initialPos + transform.up * pushDistance;
+        audioSource.Play();
         isPushing = true;
     }
 

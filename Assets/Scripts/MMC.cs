@@ -34,16 +34,18 @@ public class MMC : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && TogglePauseMenu == false)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame();
-            TogglePauseMenu = true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Escape) && TogglePauseMenu == true)
-        {
-            ResumeGame();
-            TogglePauseMenu = false;
+            if (TogglePauseMenu == false)
+            {
+                PauseGame();
+                TogglePauseMenu = true;
+            }
+            else if (TogglePauseMenu == true)
+            {
+                ResumeGame();
+                TogglePauseMenu = false;
+            }
         }
     }
 
@@ -63,7 +65,7 @@ public class MMC : MonoBehaviour
 
     public void Restart()
     {
-         SceneManager.LoadScene("Stage");
+        SceneManager.LoadScene("Stage");
     }
     public void MouseEnable()
     {

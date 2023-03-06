@@ -23,12 +23,15 @@ public class ProjectileController : MonoBehaviour
     private bool readyToThrow;
     private AudioSource SFX;
     public AudioClip LaunchSFX;
+    public GameObject MenuEvents;
+    MMC MenuManager;
 
     private void Start()
     {
         readyToThrow = false;
         throwableHoldingScript = attackPoint.gameObject.GetComponent<ThrowableHolding>();
         SFX = GetComponent<AudioSource>();
+        MenuManager = MenuEvents.GetComponent<MMC>();
     }
 
     private void Update()
